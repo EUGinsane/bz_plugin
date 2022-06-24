@@ -10,4 +10,15 @@ class BzPlugin {
     final String? version = await _channel.invokeMethod('getPlatformVersion');
     return version;
   }
+
+  static Future<bool?> isToday(DateTime dateTime) async {
+    final date = dateTime.toUtc().toIso8601String();
+    final bool? isSuccess = await _channel.invokeMethod(
+      'isToday',
+      {
+        'dateTime': date,
+      },
+    );
+    return isSuccess;
+  }
 }
