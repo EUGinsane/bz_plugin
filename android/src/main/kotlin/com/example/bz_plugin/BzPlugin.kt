@@ -1,12 +1,17 @@
 package com.example.bz_plugin
 
+import android.os.Build
 import androidx.annotation.NonNull
+import com.cesarferreira.tempo.Tempo
+import com.cesarferreira.tempo.isToday
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import java.text.SimpleDateFormat
+import java.util.*
 
 /** BzPlugin */
 class BzPlugin: FlutterPlugin, MethodCallHandler {
@@ -22,11 +27,27 @@ class BzPlugin: FlutterPlugin, MethodCallHandler {
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    } else {
-      result.notImplemented()
+    when (call.method) {
+      "getPlatformVersion" -> result.success("Android ${Build.VERSION.RELEASE}")
+      "isToday" -> isToday(call, result)
+      else -> {
+        result.notImplemented()
+      }
     }
+  }
+
+  private fun isToday(@NonNull call: MethodCall, @NonNull result: Result) {
+    var arguments = call.arguments as Map<String, Any>
+    var dateTime = arguments["dateTime"] as String
+    var localDate = dateTime.toDate()
+    var checkToday = localDate.isToday // library Tempo check isToday
+    result.success(checkToday)
+  }
+
+  private fun String.toDate(dateFormat: String = "yyyy-MM-dd'T'HH:mm:ss", timeZone: TimeZone = TimeZone.getTimeZone("UTC")): Date {
+    val parser = SimpleDateFormat(dateFormat, Locale.getDefault())
+    parser.timeZone = timeZone
+    return parser.parse(this)
   }
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
