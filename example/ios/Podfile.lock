@@ -1,0 +1,35 @@
+PODS:
+  - BVSwift/BVAnalytics (1.9.0):
+    - BVSwift/BVCommon
+  - BVSwift/BVCommon (1.9.0)
+  - bz_plugin (0.0.1):
+    - BVSwift/BVAnalytics
+    - Flutter
+    - SwiftDate
+  - Flutter (1.0.0)
+  - SwiftDate (6.3.1)
+
+DEPENDENCIES:
+  - bz_plugin (from `.symlinks/plugins/bz_plugin/ios`)
+  - Flutter (from `Flutter`)
+
+SPEC REPOS:
+  trunk:
+    - BVSwift
+    - SwiftDate
+
+EXTERNAL SOURCES:
+  bz_plugin:
+    :path: ".symlinks/plugins/bz_plugin/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  BVSwift: e350bbb6ba2d94a5e8978671d05e39d3770e608b
+  bz_plugin: f0cfbd16766eb131de8b2f30ddacdbf69a5e4a7f
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.11.3
