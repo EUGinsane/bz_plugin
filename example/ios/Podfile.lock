@@ -1,9 +1,25 @@
 PODS:
+  - BVSwift (1.9.0):
+    - BVSwift/BVCommon (= 1.9.0)
   - BVSwift/BVAnalytics (1.9.0):
     - BVSwift/BVCommon
   - BVSwift/BVCommon (1.9.0)
-  - bz_plugin (0.0.1):
+  - BVSwift/BVConversations (1.9.0):
     - BVSwift/BVAnalytics
+    - BVSwift/BVCommon
+  - BVSwift/BVCurations (1.9.0):
+    - BVSwift/BVAnalytics
+    - BVSwift/BVCommon
+  - BVSwift/BVRecommendations (1.9.0):
+    - BVSwift/BVAnalytics
+    - BVSwift/BVCommon
+  - bz_plugin (0.0.1):
+    - BVSwift
+    - BVSwift/BVAnalytics
+    - BVSwift/BVCommon
+    - BVSwift/BVConversations
+    - BVSwift/BVCurations
+    - BVSwift/BVRecommendations
     - Flutter
     - SwiftDate
   - Flutter (1.0.0)
@@ -26,7 +42,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BVSwift: e350bbb6ba2d94a5e8978671d05e39d3770e608b
-  bz_plugin: f0cfbd16766eb131de8b2f30ddacdbf69a5e4a7f
+  bz_plugin: 97a0bda9904b115c8011816cb6f7e80db671e23c
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
 

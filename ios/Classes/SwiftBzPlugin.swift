@@ -1,6 +1,7 @@
 import Flutter
 import UIKit
 import SwiftDate
+import BVSwift
 
 public class SwiftBzPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -13,20 +14,69 @@ public class SwiftBzPlugin: NSObject, FlutterPlugin {
      switch call.method {
     case "getPlatformVersion":
         result("iOS " + UIDevice.current.systemVersion)
-    case "isToday":
-        isToday(call, result)
+    case "BVPageViewEvent":
+        BVPageViewEvent(call, result)
     default:
         result(nil)
     }
   }
   
-   private func isToday(_ call: FlutterMethodCall,_ result: @escaping FlutterResult) {
+  private func BVPageViewEvent(_ call: FlutterMethodCall,_ result: @escaping FlutterResult) {
+      let arguments = call.arguments as! Dictionary<String, Any>
+      let productId = arguments["productId"] as! String
+      let categoryId = arguments["categoryId"] as! String
+      let clientId = arguments["clientId"] as! String
+      let passkey = arguments["passkey"] as! String
+    
+      let config: BVConversationsConfiguration =
+        { () -> BVConversationsConfiguration in
+       
+          let analyticsConfig: BVAnalyticsConfiguration = .configuration(locale: Locale(identifier: "sg"), configType: .production(clientId: clientId))
+       
+          return BVConversationsConfiguration.all(
+            clientKey: passkey,
+            configType: .production(clientId: clientId),
+            analyticsConfig: analyticsConfig)
+        }()
+      
+      BVManager.sharedManager.addConfiguration(config)
+      
+    let pageView: BVAnalyticsEvent =
+                      .pageView(
+                          bvProduct: .reviews,
+                          productId: productId,
+                          brand: "brandName",
+                          categoryId: categoryId,
+                          rootCategoryId: "rootCategoryId",
+                          additional: nil)
+    BVPixel.track(pageView)
+  }
+    
+    private func BVConversionEvent(_ call: FlutterMethodCall,_ result: @escaping FlutterResult) {
         let arguments = call.arguments as! Dictionary<String, Any>
-        let dateTime = arguments["dateTime"] as! String;
-        // Convert to local
-        let localDate = dateTime.toDate(nil, region: Region.current)
-        // Check isToday
-        let checkToday = localDate?.isToday
-        result(checkToday)
+        let categoryId = arguments["categoryId"] as! String
+        let clientId = arguments["clientId"] as! String
+        let passkey = arguments["passkey"] as! String
+      
+        let config: BVConversationsConfiguration =
+          { () -> BVConversationsConfiguration in
+         
+            let analyticsConfig: BVAnalyticsConfiguration = .configuration(locale: Locale(identifier: "sg"), configType: .production(clientId: clientId))
+         
+            return BVConversationsConfiguration.all(
+              clientKey: passkey,
+              configType: .production(clientId: clientId),
+              analyticsConfig: analyticsConfig)
+          }()
+        
+        BVManager.sharedManager.addConfiguration(config)
+        
+        let conversion: BVAnalyticsEvent =
+            .conversion(
+                type: "CategoryClick",
+                value: categoryId,
+                label: "",
+                additional: [:])
+        BVPixel.track(conversion)
     }
 }

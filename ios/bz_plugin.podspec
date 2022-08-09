@@ -16,7 +16,12 @@ A new flutter plugin project.
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
   s.dependency 'SwiftDate'
+  s.dependency 'BVSwift'
+  s.dependency 'BVSwift/BVConversations'
   s.dependency 'BVSwift/BVAnalytics'
+  s.dependency 'BVSwift/BVCommon'
+  s.dependency 'BVSwift/BVCurations'
+  s.dependency 'BVSwift/BVRecommendations'
   s.platform = :ios, '9.0'
 
   # Flutter.framework does not contain a i386 slice.

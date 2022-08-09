@@ -11,14 +11,27 @@ class BzPlugin {
     return version;
   }
 
-  static Future<bool?> isToday(DateTime dateTime) async {
-    final date = dateTime.toUtc().toIso8601String();
-    final bool? isSuccess = await _channel.invokeMethod(
-      'isToday',
+  // ignore: non_constant_identifier_names
+  static Future<void> BVPageViewEvent(String clientId, String passkey, String? productId, String? categoryId) async {
+    await _channel.invokeMethod(
+      'BVPageViewEvent',
       {
-        'dateTime': date,
+        'productId': productId,
+        'categoryId': categoryId,
+        'clientId': clientId,
+        'passkey': passkey
       },
     );
-    return isSuccess;
+  }
+  // ignore: non_constant_identifier_names
+  static Future<void> BVConversionEvent(String clientId, String passkey, String? categoryId) async {
+    await _channel.invokeMethod(
+      'BVConversionEvent',
+      {
+        'categoryId': categoryId,
+        'clientId': clientId,
+        'passkey': passkey
+      },
+    );
   }
 }
