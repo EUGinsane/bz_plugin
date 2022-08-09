@@ -36,7 +36,7 @@ class BzPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     when (call.method) {
-      "getPlatformVersion" -> result.success("Android ${Build.VERSION.RELEASE}")
+      "init" -> init(call, result)
       "BVPageViewEvent" -> BVPageViewEvent(call, result)
       "BVConversionEvent" -> BVConversionEvent(call, result)
       else -> {
@@ -45,14 +45,18 @@ class BzPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     }
   }
 
-  private fun BVPageViewEvent(@NonNull call: MethodCall, @NonNull result: Result) {
+  private fun init(@NonNull call: MethodCall, @NonNull result: Result) {
     var arguments = call.arguments as Map<String, Any>
-    var productId = arguments["productId"] as String
-    var category = arguments["category"] as String
     var clientId = arguments["clientId"] as String
 
     BVPixel.builder(context, clientId, false, false, Locale.getDefault())
             .build();
+  }
+
+  private fun BVPageViewEvent(@NonNull call: MethodCall, @NonNull result: Result) {
+    var arguments = call.arguments as Map<String, Any>
+    var productId = arguments["productId"] as String
+    var category = arguments["category"] as String
 
     val event = BVPageViewEvent(
             productId,
@@ -66,10 +70,6 @@ class BzPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   private fun BVConversionEvent(@NonNull call: MethodCall, @NonNull result: Result) {
     var arguments = call.arguments as Map<String, Any>
     var category = arguments["category"] as String
-    var clientId = arguments["clientId"] as String
-
-    BVPixel.builder(context, clientId, false, false, Locale.getDefault())
-            .build();
 
     val event = BVConversionEvent("CategoryClick", category, "")
 

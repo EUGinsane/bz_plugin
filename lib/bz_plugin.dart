@@ -10,14 +10,10 @@ class BzPlugin {
     return version;
   }
 
-  // ignore: non_constant_identifier_names
-  static Future<void> BVPageViewEvent(String clientId, String passkey,
-      String? productId, String? categoryId) async {
+    static Future<void> init(String clientId, String passkey) async {
     await _channel.invokeMethod(
-      'BVPageViewEvent',
+      'init',
       {
-        'productId': productId,
-        'category': categoryId,
         'clientId': clientId,
         'passkey': passkey
       },
@@ -25,11 +21,23 @@ class BzPlugin {
   }
 
   // ignore: non_constant_identifier_names
+  static Future<void> BVPageViewEvent(
+      String? productId, String? categoryId) async {
+    await _channel.invokeMethod(
+      'BVPageViewEvent',
+      {
+        'productId': productId,
+        'category': categoryId
+      },
+    );
+  }
+
+  // ignore: non_constant_identifier_names
   static Future<void> BVConversionEvent(
-      String clientId, String passkey, String? categoryId) async {
+      String? categoryId) async {
     await _channel.invokeMethod(
       'BVConversionEvent',
-      {'category': categoryId, 'clientId': clientId, 'passkey': passkey},
+      {'category': categoryId},
     );
   }
 }
