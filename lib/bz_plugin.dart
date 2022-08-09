@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/services.dart';
@@ -12,26 +11,25 @@ class BzPlugin {
   }
 
   // ignore: non_constant_identifier_names
-  static Future<void> BVPageViewEvent(String clientId, String passkey, String? productId, String? categoryId) async {
+  static Future<void> BVPageViewEvent(String clientId, String passkey,
+      String? productId, String? categoryId) async {
     await _channel.invokeMethod(
       'BVPageViewEvent',
       {
         'productId': productId,
-        'categoryId': categoryId,
+        'category': categoryId,
         'clientId': clientId,
         'passkey': passkey
       },
     );
   }
+
   // ignore: non_constant_identifier_names
-  static Future<void> BVConversionEvent(String clientId, String passkey, String? categoryId) async {
+  static Future<void> BVConversionEvent(
+      String clientId, String passkey, String? categoryId) async {
     await _channel.invokeMethod(
       'BVConversionEvent',
-      {
-        'categoryId': categoryId,
-        'clientId': clientId,
-        'passkey': passkey
-      },
+      {'category': categoryId, 'clientId': clientId, 'passkey': passkey},
     );
   }
 }
