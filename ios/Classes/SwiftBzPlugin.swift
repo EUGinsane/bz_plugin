@@ -45,7 +45,7 @@ public class SwiftBzPlugin: NSObject, FlutterPlugin {
   private func BVPageViewEvent(_ call: FlutterMethodCall,_ result: @escaping FlutterResult) {
       let arguments = call.arguments as! Dictionary<String, Any>
       let productId = arguments["productId"] as! String
-      let categoryId = arguments["categoryId"] as! String
+      let category = arguments["category"] as! String
       
       
     let pageView: BVAnalyticsEvent =
@@ -53,7 +53,7 @@ public class SwiftBzPlugin: NSObject, FlutterPlugin {
                           bvProduct: .reviews,
                           productId: productId,
                           brand: "brandName",
-                          categoryId: categoryId,
+                          categoryId: category,
                           rootCategoryId: "rootCategoryId",
                           additional: nil)
     BVPixel.track(pageView)
@@ -61,12 +61,12 @@ public class SwiftBzPlugin: NSObject, FlutterPlugin {
     
     private func BVConversionEvent(_ call: FlutterMethodCall,_ result: @escaping FlutterResult) {
         let arguments = call.arguments as! Dictionary<String, Any>
-        let categoryId = arguments["categoryId"] as! String
+        let category = arguments["category"] as! String
     
         let conversion: BVAnalyticsEvent =
             .conversion(
                 type: "CategoryClick",
-                value: categoryId,
+                value: category,
                 label: "",
                 additional: [:])
         BVPixel.track(conversion)
