@@ -15,6 +15,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import kotlinx.android.synthetic.*
 import java.util.*
 
 
@@ -85,14 +86,11 @@ class BzPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
-    TODO("Not yet implemented")
   }
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-    TODO("Not yet implemented")
   }
 
   override fun onDetachedFromActivity() {
-    TODO("Not yet implemented")
   }
 }
