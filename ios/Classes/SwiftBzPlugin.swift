@@ -1,6 +1,5 @@
 import Flutter
 import UIKit
-import SwiftDate
 import BVSwift
 
 public class SwiftBzPlugin: NSObject, FlutterPlugin {
